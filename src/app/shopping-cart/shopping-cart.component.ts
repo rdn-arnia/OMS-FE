@@ -33,8 +33,9 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public submitOrder(): void {
-    this.orderService.submitOrder(this.customer, this.orderItems);
-    console.log('order submitted');
+    this.orderService.submitOrder(this.customer, this.orderItems).subscribe(response => {
+      this.clearOrder();
+    });
   }
 
   public clearOrder(): void {
