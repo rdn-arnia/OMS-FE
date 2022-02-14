@@ -1,0 +1,59 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+  
+      <mat-card>
+        <mat-card-content>
+          <h2>Shopping cart</h2>
+          <div class="mdl-grid">
+            <label class="mdc-text-field mdc-text-field--filled">
+                <span class="mdc-text-field__ripple"></span>
+                <span class="mdc-floating-label">Customer Id</span>
+                <input class="mdc-text-field__input" type="text">
+                <span class="mdc-line-ripple"></span>
+            </label>
+          </div>
+
+          <table mat-table [dataSource]="dataSource" matSort>
+        
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+              <td mat-cell *matCellDef="let element"> {{element.catalogItem.product?.title}} </td>
+            </ng-container>
+        
+            <!-- Quantity Column -->
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+              <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container>
+          
+            <!-- Unit price Column -->
+            <ng-container matColumnDef="unit_price">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit price </th>
+              <td mat-cell *matCellDef="let element"> {{element.catalogItem.price}} </td>
+            </ng-container>
+          
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+              <td mat-cell *matCellDef="let element"> {{element.catalogItem.price * element.quantity}} </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+            [pageSize]="10"
+            showFirstLastButtons 
+            aria-label="Select page of products">
+          </mat-paginator>
+
+          <button mat-raised-button color="primary" [disabled]="!hasOrderItems() && !!customer" (click)="submitOrder()">Submit order</button>
+          <button mat-raised-button color="primary" [disabled]="!hasOrderItems() && !!customer" (click)="clearOrder()">Clear order</button>
+
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
