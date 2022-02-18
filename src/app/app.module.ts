@@ -22,6 +22,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     CatalogComponent,
     TopBarComponent,
     ProductComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
