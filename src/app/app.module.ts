@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductComponent } from './product/product.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
@@ -23,6 +23,8 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrdersComponent } from './orders/orders.component';
+import { MsalInterceptor, MsalModule, MsalRedirectComponent, MsalGuard } from '@azure/msal-angular';
+import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 
 @NgModule({
   declarations: [
@@ -50,9 +52,33 @@ import { OrdersComponent } from './orders/orders.component';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MsalModule.forRoot( new PublicClientApplication({
+			auth: {
+				clientId: 'a07a691a-684b-4898-933a-8d222f7dcb2d',
+        postLogoutRedirectUri: '/'
+			},
+			cache: {
+				cacheLocation: 'localStorage',
+				storeAuthStateInCookie: false,
+			}
+		}), {
+			interactionType: InteractionType.Redirect,
+			authRequest: {
+				scopes: ['api://27dc4701-06b3-453d-b323-b73964f71f86/.default']
+			}
+		}, {
+			interactionType: InteractionType.Redirect,
+			protectedResourceMap: new Map([ 
+				['http://localhost:5150/api/catalogs/current', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']]
+			])
+		})
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: MsalInterceptor,
+    multi: true
+  }, MsalGuard],
+  bootstrap: [AppComponent, MsalRedirectComponent]
 })
 export class AppModule { }
