@@ -74,6 +74,7 @@ import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 				[environment.apiUrl + '/catalogs/current', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']],
 				[environment.apiUrl + '/catalogitems', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']],
 				[environment.apiUrl + '/product', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']],
+				[environment.apiUrl + '/orders', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']],
 			])
 		})
   ],
