@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment.prod';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -70,7 +71,9 @@ import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 		}, {
 			interactionType: InteractionType.Redirect,
 			protectedResourceMap: new Map([ 
-				['http://localhost:5150/api/catalogs/current', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']]
+				[environment.apiUrl + '/catalogs/current', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']],
+				[environment.apiUrl + '/catalogitems', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']],
+				[environment.apiUrl + '/product', ['api://27dc4701-06b3-453d-b323-b73964f71f86/Order']],
 			])
 		})
   ],

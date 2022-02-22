@@ -2,11 +2,14 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderItem } from './models/order-item';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
+
+  private ordersUrl = environment.apiUrl + '/orders';
 
   constructor(
     private http: HttpClient
@@ -29,6 +32,6 @@ export class OrderService {
         }})
     };
 
-    return this.http.post("http://localhost:5150/api/orders", postData, httpOptions);
+    return this.http.post(this.ordersUrl, postData, httpOptions);
   }
 }
