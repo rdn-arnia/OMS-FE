@@ -15,7 +15,7 @@ export class ShoppingCartComponent implements OnInit {
   orderItems: OrderItem[] = [];
   dataSource = new MatTableDataSource(this.orderItems);
   displayedColumns: string[] = ['title', 'quantity', 'unit_price', 'price'];
-  customer: string = '';
+  customerId: string = '';
   
   quantitiesToOrder: number[] = [];
 
@@ -33,13 +33,14 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public submitOrder(): void {
-    this.orderService.submitOrder(this.customer, this.orderItems).subscribe(response => {
+    this.orderService.submitOrder(this.customerId, this.orderItems).subscribe(response => {
       this.clearOrder();
     });
   }
 
   public clearOrder(): void {
     this.cartService.clear();
+    this.customerId = "";
     this.loadOrderItems();
   }
 

@@ -8,7 +8,7 @@
             <label class="mdc-text-field mdc-text-field--filled">
                 <span class="mdc-text-field__ripple"></span>
                 <span class="mdc-floating-label">Customer Id</span>
-                <input class="mdc-text-field__input" type="text">
+                <input class="mdc-text-field__input" [(ngModel)]="customerId" type="text">
                 <span class="mdc-line-ripple"></span>
             </label>
           </div>
@@ -49,8 +49,8 @@
             aria-label="Select page of products">
           </mat-paginator>
 
-          <button mat-raised-button color="primary" [disabled]="!hasOrderItems() && !!customer" (click)="submitOrder()">Submit order</button>
-          <button mat-raised-button color="primary" [disabled]="!hasOrderItems() && !!customer" (click)="clearOrder()">Clear order</button>
+          <button mat-raised-button color="primary" [disabled]="!hasOrderItems() || !customerId" (click)="submitOrder()">Submit order</button>
+          <button mat-raised-button color="primary" [disabled]="hasOrderItems() || !!customerId" (click)="clearOrder()">Clear order</button>
 
 
         </mat-card-content>
